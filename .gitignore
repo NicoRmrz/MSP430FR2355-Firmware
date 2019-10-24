@@ -1,0 +1,7 @@
+
+*.pyc
+
+msp430/
+.vs/
+.jxbrowser-data
+.metadata
