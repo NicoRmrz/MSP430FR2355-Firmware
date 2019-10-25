@@ -31,16 +31,21 @@
 //  __________________________________________________________________________________*/
 #include <msp430.h>
 
+#define LED_1   (BIT0)                      // P1.0 LED output
+
 unsigned int ADC_Result;
+
+
 
 int main(void)
 {
     WDTCTL = WDTPW | WDTHOLD;                                 // Stop WDT
 
     // Configure GPIO
-    P1DIR |= BIT0 + BIT2;                                            // Set P1.2/LED to output direction
-//    P1OUT &= ~BIT2;                                           // P1.0 and P1.2 LED off
-    P1OUT |= BIT0 + BIT2;                                    // Set P1.0 and P1.2 LED on
+    P6      // P6.2 (n12VFlt) 
+    // P1DIR |= BIT0 + BIT2;                                            // Set P1.0 and P1.2/LED to output direction
+//    P1OUT &= ~BIT2;                                           // P1.2 LED off
+    // P1OUT |= BIT0 + BIT2;                                    // Set P1.0 and P1.2 LED on
 
     // Configure ADC A1 pin
     P1SEL0 |= BIT1;
@@ -81,6 +86,7 @@ int main(void)
         // dvccValue = ((unsigned long)4095 * (unsigned long)150) / (unsigned long) (adcResult);
         // if (dvccValue < 250)                // DVCC < 2.50V?
 
+// Power Selection
         if (ADC_Result < 0x555)                               // 0x555 represent 0.5V
             P1OUT &= ~BIT0 + BIT2;                                   // Clear P1.0 and P1.2 LED off
 //            P1OUT |= BIT0;                                    // Set P1.2 LED on
